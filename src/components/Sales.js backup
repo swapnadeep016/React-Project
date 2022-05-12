@@ -1,0 +1,173 @@
+import { Button, Modal, Form } from 'react-bootstrap';
+import storeSalesList from '../data/sales';
+import 'bootstrap/dist/css/bootstrap.css'
+import Navigationbar from './Navigationbar';
+import { useState } from 'react';
+import Footer from './Footer';
+const CreateSales = (props) => {
+  const addNewSales = () => {
+    console.log("ADD")
+  }
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Create Sale
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Date Sold</Form.Label>
+          <Form.Control type="date" placeholder="11/29/2018" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Customer</Form.Label>
+          <Form.Select aria-label="Default select example">
+            <option>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </Form.Select>
+        </Form.Group>      
+
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Product</Form.Label>
+          <Form.Select aria-label="Default select example">
+            <option>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </Form.Select>
+        </Form.Group>  
+
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Store</Form.Label>
+          <Form.Select aria-label="Default select example">
+            <option>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </Form.Select>
+        </Form.Group> 
+      </Form>
+
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button  variant='dark' onClick={props.onHide}>Cancel</Button>
+        <Button variant="success" type="submit" onClick={addNewSales}>
+          Create
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+const EditSales = (props) => {
+  const EditNewSale = () => {
+    console.log("ADD")
+  }
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Edit Sale
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control type="text" placeholder="Enter Name" />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicAddress">
+          <Form.Label>Price</Form.Label>
+          <Form.Control type="text" placeholder="Address" />
+        </Form.Group>
+        
+        
+      </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button  variant='dark' onClick={props.onHide}>Cancel</Button>
+        <Button variant="success" type="submit" onClick={EditNewSale}>
+          Edit
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+const Sales = () => {
+    const [modalShow, setModalShow] = useState(false);
+    const [editShow, setEditShow] = useState(false);
+    return (
+        <>
+        <Navigationbar />
+        <div className='m-2'>
+            <Button type='primary' onClick={() => setModalShow(true)}>New Sale</Button>
+        </div>
+        <div className="table-responsive m-3">
+          <table className={"table line-table text-dark table-bordered"}>
+            <thead fixed="top">
+              {/* {displayData ? ( */}
+                <tr>
+                  <th>Customer</th>
+                  <th>Product</th>
+                  <th>Store</th>
+                  <th>DateSold</th>
+                  <th>Actions</th>
+                  <th>Actions</th>
+                </tr>
+              {/* ) : (
+                ""
+              )} */}
+            </thead>
+
+            <tbody>
+               {
+                 storeSalesList.map((val) => (
+                    <tr key={val.id} id={val.id}>
+                     <td>{val.customer}</td>
+                     <td>{val.product}</td>
+                     <td>{val.store}</td>
+                     <td>{val.datesold}</td>
+                     <td><Button variant='warning' onClick={() => setEditShow(true)}>Edit</Button></td>
+                     <td><Button variant='danger'>Delete</Button></td>
+                    </tr>
+                  ))
+                }
+            </tbody>
+          </table>
+        </div>
+        <CreateSales
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            />
+        <Footer />
+        <EditSales
+              show={editShow}
+              onHide={() => setEditShow(false)}
+            />
+        <Footer />
+    </>
+        
+    )
+}
+    
+export default Sales;
